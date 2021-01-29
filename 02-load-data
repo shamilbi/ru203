@@ -1,3 +1,4 @@
 #!/bin/bash
 
-docker exec -i redis-search-2 redis-cli < commands.redis > output.tmp
+log=output.tmp
+docker exec -i redis-search-2 redis-cli < commands.redis >"$log"

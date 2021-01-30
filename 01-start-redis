@@ -1,4 +1,10 @@
 #!/bin/bash
 
-#docker run -p 127.0.0.1:6379:6379 -it --rm redislabs/redistimeseries
-docker run -p 127.0.0.1:6379:6379 -it --rm --name redis-search-2 redislabs/redisearch:2.0.5
+name=redis-search-2
+image=redislabs/redisearch:2.0.5
+pid_file=redis.pid.tmp
+
+if [[ -r $pid_file && -s $pid_file ]]; then
+    docker stop $(cat "$pid_file")
+fi
+docker run -d -p 127.0.0.1:6379:6379 -it --rm --name $name $image >"$pid_file"
